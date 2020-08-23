@@ -11,7 +11,7 @@ import smtplib, ssl
 import json
 import configparser
 
-breeds = [
+shelter_breeds = [
     "LABRADOR%20RETR",
     "BORDER%20COLLIE",
     "GOLDEN%20RETR",
@@ -22,6 +22,20 @@ breeds = [
     "FOX%20TERR%20SMOOTH",
     "JACK%20RUSS%20TERR"
 ]
+
+petfinder_breeds = [
+    "breed\[\]=Australian%20Cattle%20Dog%20%2F%20Blue%20Heeler",
+    "breed\[\]=Australian%20Shepherd",
+    "breed\[\]=Shepherd",
+    "breed\[\]=Border%20Collie&",
+    "breed\[\]=Golden%20Retriever",
+    "breed\[\]=Labrador%20Retriever",
+    "breed\[\]=Shetland%20Sheepdog%20%2F%20Sheltie",
+    "breed\[\]=Smooth%20Fox%20Terrier",
+    "breed\[\]=Jack%20Russell%20Terrier"
+]
+
+petfinder_breeds_url = "&".join(petfinder_breeds)
 
 ssl_port = 465
 smtp_server = "smtp.gmail.com"
@@ -43,8 +57,8 @@ receiver_email = config["DEFAULT"]["receiver_email"].split(",")
 
 def get_doggies():
     current_ids = []
-    # la country shelter
-    for breed in breeds:
+    # la county shelter
+    for breed in shelter_breeds:
         list_of_doggies = subprocess.run(
             ["curl", "https://api.lacounty.gov/accsearch/AnimalSearchServlet?callback=animal&pageNumber=1&pageSize=12&animalCareCenter=ALL&animalType=DOG&sex=ALL&breed=" + breed + "&animalAge=LT1Y&animalSize=ALL&animalID=&test=9"],
             stdout=subprocess.PIPE, 
@@ -62,7 +76,11 @@ def get_doggies():
     
     # petfinder
     petfinder_doggies = subprocess.run(
-        ["curl", "https://www.petfinder.com/search/?page=1&limit\[\]=40&status=adoptable&token=HGsFL0jv1vRbYEXuY06hbrddekWMEWqOTf9AdPiwVjQ&days_on_petfinder[]=1&distance\[\]=100&type\[\]=dogs&sort\[\]=nearest&age\[\]=Baby&breed\[\]=Australian%20Cattle%20Dog%20%2F%20Blue%20Heeler&breed\[\]=Australian%20Shepherd&breed\[\]=Shepherd&breed\[\]=Border%20Collie&breed\[\]=Golden%20Retriever&breed\[\]=Labrador%20Retriever&breed\[\]=Shetland%20Sheepdog%20%2F%20Sheltie&breed\[\]=Smooth%20Fox%20Terrier&breed[]=Jack%20Russell%20Terrier&location_slug\[\]=us%2Fca%2F91301&include_transportable=0", "-H", "X-Requested-With: XMLHttpRequest"],
+        ["curl", "https://www.petfinder.com/search/?page=1&limit\[\]=40&status=adoptable&token=HGsFL0jv1vRbYEXuY06hbrddekWMEWqOTf9AdPiwVjQ&days_on_petfinder[]=1&distance\[\]=100&type\[\]=dogs&sort\[\]=nearest&age\[\]=Baby&" 
+        + petfinder_breeds_url 
+        + "&location_slug\[\]=us%2Fca%2F91301&include_transportable=0", 
+        "-H", 
+        "X-Requested-With: XMLHttpRequest"],
         stdout=subprocess.PIPE, 
         stderr=subprocess.PIPE, 
         universal_newlines=True)
