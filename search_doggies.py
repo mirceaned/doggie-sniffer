@@ -9,6 +9,7 @@ import subprocess
 import time
 import smtplib, ssl
 import json
+import configparser
 
 breeds = [
     "LABRADOR%20RETR",
@@ -33,6 +34,12 @@ Sniff, sniff, the search begins..."""
 shelter_message = """\
 Subject: new doggie found with id <id>
 """
+
+config = configparser.ConfigParser()
+config.read("doggie.ini")
+sender_email = config["DEFAULT"]["sender_email"]
+sender_password = config["DEFAULT"]["sender_password"]
+receiver_email = config["DEFAULT"]["receiver_email"].split(",")
 
 def get_doggies():
     current_ids = []
@@ -74,7 +81,7 @@ def get_doggies():
 subprocess.run(["tput", "bel"])        
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL(smtp_server, ssl_port, context=context) as server:
-    server.login(sender_email, password)
+    server.login(sender_email, sender_password)
     server.sendmail(sender_email, receiver_email, intro_message)
 
 initial_ids = get_doggies()
