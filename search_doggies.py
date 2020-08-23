@@ -12,27 +12,32 @@ import json
 import configparser
 
 shelter_breeds = [
-    "LABRADOR%20RETR",
-    "BORDER%20COLLIE",
-    "GOLDEN%20RETR",
-    "AUST%20SHEPPERD",
     "AUST%20CATTLE%20DOG",
+    "AUST%20SHEPPERD",
     "BELG%20MALINOIS",
-    "SHETLD%20SHEEPDOG",
+    "BELG%20SHEEPDOG",
+    "BORDER%20COLLIE",
+    "DUTCH%20SHEPHERD",
     "FOX%20TERR%20SMOOTH",
-    "JACK%20RUSS%20TERR"
+    "GOLDEN%20RETR",
+    "JACK%20RUSS%20TERR",
+    "LABRADOR%20RETR",
+    "SHETLD%20SHEEPDOG"
 ]
 
 petfinder_breeds = [
     "breed\[\]=Australian%20Cattle%20Dog%20%2F%20Blue%20Heeler",
     "breed\[\]=Australian%20Shepherd",
-    "breed\[\]=Shepherd",
+    "breed\[\]=Belgian%20Shepherd%20%2F%20Malinois",
+    "breed\[\]=Belgian%20Shepherd%20%2F%20Sheepdog",
     "breed\[\]=Border%20Collie&",
-    "breed\[\]=Golden%20Retriever",
-    "breed\[\]=Labrador%20Retriever",
-    "breed\[\]=Shetland%20Sheepdog%20%2F%20Sheltie",
+    "breed\[\]=Dutch%20Shepherd",
     "breed\[\]=Smooth%20Fox%20Terrier",
-    "breed\[\]=Jack%20Russell%20Terrier"
+    "breed\[\]=Golden%20Retriever",
+    "breed\[\]=Jack%20Russell%20Terrier",
+    "breed\[\]=Labrador%20Retriever",
+    "breed\[\]=Shepherd",
+    "breed\[\]=Shetland%20Sheepdog%20%2F%20Sheltie"
 ]
 
 petfinder_breeds_url = "&".join(petfinder_breeds)
@@ -118,7 +123,7 @@ while True:
     for new_id in difference:
         print("sending email for ", new_id)
         with smtplib.SMTP_SSL(smtp_server, ssl_port, context=context) as server:
-            server.login(sender_email, password)
+            server.login(sender_email, sender_password)
             server.sendmail(sender_email, receiver_email, shelter_message.replace("<id>", new_id))
         subprocess.run(["tput", "bel"])
 
