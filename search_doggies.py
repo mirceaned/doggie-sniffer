@@ -45,11 +45,6 @@ petfinder_breeds_url = "&".join(petfinder_breeds)
 ssl_port = 465
 smtp_server = "smtp.gmail.com"
 
-intro_message = """\
-Subject: mission Doggie
-
-Sniff, sniff, the search begins..."""
-
 shelter_message = """\
 Subject: new doggie found with id <id>
 """
@@ -102,10 +97,6 @@ def get_doggies():
     return current_ids
 
 subprocess.run(["tput", "bel"])        
-context = ssl.create_default_context()
-with smtplib.SMTP_SSL(smtp_server, ssl_port, context=context) as server:
-    server.login(sender_email, sender_password)
-    server.sendmail(sender_email, receiver_email, intro_message)
 
 initial_ids = get_doggies()
 print("initial ids ", initial_ids)
