@@ -30,14 +30,23 @@ petfinder_breeds = [
     "breed\[\]=Australian%20Shepherd",
     "breed\[\]=Belgian%20Shepherd%20%2F%20Malinois",
     "breed\[\]=Belgian%20Shepherd%20%2F%20Sheepdog",
+    "breed\[\]=Black%20Labrador%20Retriever",
     "breed\[\]=Border%20Collie&",
+    "breed\[\]=Cattle%20Dog",
+    "breed\[\]=Chocolate%20Labrador%20Retriever",
     "breed\[\]=Dutch%20Shepherd",
-    "breed\[\]=Smooth%20Fox%20Terrier",
+    "breed\[\]=English%20Shepherd",
+    "breed\[\]=Flat-Coated%20Retriever",
     "breed\[\]=Golden%20Retriever",
     "breed\[\]=Jack%20Russell%20Terrier",
     "breed\[\]=Labrador%20Retriever",
+    "breed\[\]=Retriever",
+    "breed\[\]=Sheep%20Dog",
     "breed\[\]=Shepherd",
-    "breed\[\]=Shetland%20Sheepdog%20%2F%20Sheltie"
+    "breed\[\]=Shetland%20Sheepdog%20%2F%20Sheltie",
+    "breed\[\]=Smooth%20Collie",
+    "breed\[\]=Smooth%20Fox%20Terrier",
+    "breed\[\]=Yellow%20Labrador%20Retriever"
 ]
 
 petfinder_breeds_url = "&".join(petfinder_breeds)
