@@ -13,6 +13,7 @@ import configparser
 
 shelter_breeds = [
     "AUST%20CATTLE%20DOG",
+    "AUST%20KELPIE",
     "AUST%20SHEPPERD",
     "BELG%20MALINOIS",
     "BELG%20SHEEPDOG",
@@ -30,6 +31,7 @@ shelter_breeds = [
 
 petfinder_breeds = [
     "breed\[\]=Australian%20Cattle%20Dog%20%2F%20Blue%20Heeler",
+    "breed\[\]=Australian%20Kelpie",
     "breed\[\]=Australian%20Shepherd",
     "breed\[\]=Belgian%20Shepherd%20%2F%20Malinois",
     "breed\[\]=Belgian%20Shepherd%20%2F%20Sheepdog",
@@ -82,7 +84,7 @@ def get_doggies():
             doggies = json.loads(clean_output)
             print("list of doggies for breed " + breed, doggies["animals"])
             for dog in doggies["animals"]:
-                current_ids.append(dog["ANIMAL_ID"])
+                current_ids.append(dog["ANIMAL_ID"]+"-"+dog["ANIMAL_NAME"])
         except Exception as e:
             print("an error occured:", e, clean_output)
     
