@@ -125,6 +125,7 @@ while True:
 
     for new_id in difference:
         print("sending email for ", new_id)
+        context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, ssl_port, context=context) as server:
             server.login(sender_email, sender_password)
             server.sendmail(sender_email, receiver_email, shelter_message.replace("<id>", new_id))
